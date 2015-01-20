@@ -53,7 +53,8 @@
         "scripts/wordpress.sh",
         "scripts/cloud.sh",
         "scripts/grubfix.sh",
-        "scripts/charmclean.sh"
+        "scripts/charmclean.sh",
+        "scripts/cloudinit-config.sh"
       ],
       "type": "shell"
     }
