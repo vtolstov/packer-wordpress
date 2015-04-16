@@ -2,24 +2,44 @@
   "builders": [
     {
       "accelerator": "kvm",
-      "boot_command": [],
+      "boot_command": [
+        "<esc><esc><enter><wait>",
+        "/install/vmlinuz auto",
+        " console-setup/ask_detect=false <wait>",
+        " console-setup/layoutcode=us <wait>",
+        " console-setup/modelcode=pc105 <wait>",
+        " debconf/frontend=noninteractive <wait>",
+        " debian-installer=en_US <wait>",
+        " fb=false",
+        " initrd=/install/initrd.gz",
+        " kbd-chooser/method=us",
+        " keyboard-configuration/layout=USA <wait>",
+        " keyboard-configuration/variant=USA <wait>",
+        " locale=en_US <wait>",
+        " netcfg/get_domain=localdomain <wait>",
+        " netcfg/get_hostname=localhost <wait>",
+        " noapic <wait>",
+        " preseed/url=http://{{ .HTTPIP }}:{{ .HTTPPort }}/14.04.cfg",
+        " -- ",
+        "<enter>"
+      ],
       "boot_wait": "5s",
       "disk_interface": "scsi",
       "disk_size": 5000,
-      "disk_image": true,
       "disk_cache": "unsafe",
       "format": "raw",
       "headless": true,
       "http_directory": "http",
-      "iso_checksum_type": "none",
-      "iso_url": "output/wordpress-base-x86_64-qemu/wordpress-base-x86_64.raw",
+      "iso_checksum": "83aabd8dcf1e8f469f3c72fff2375195",
+      "iso_checksum_type": "md5",
+      "iso_url": "http://releases.ubuntu.com/14.04/ubuntu-14.04.2-server-amd64.iso",
       "net_device": "virtio-net",
       "output_directory": "output/wordpress-current-x86_64-qemu/",
       "machine_type": "pc-i440fx-1.7",
       "qemuargs": [
         [
           "-m",
-          "1500"
+          "768"
         ],
         [
           "-device",
@@ -49,24 +69,20 @@
   "provisioners": [
     {
       "scripts": [
-        "scripts/diskfix.sh",
-        "scripts/wordpress.sh",
-        "scripts/cloud.sh",
-        "scripts/grubfix.sh",
-        "scripts/charmclean.sh",
-        "scripts/cloudinit-config.sh"
+        "scripts/base.sh",
+        "scripts/reboot.sh"
       ],
       "type": "shell"
+    },
+    {
+      "scripts": [
+        "scripts/wordpress.sh",
+        "scripts/cloudinit.sh",
+        "scripts/charmclean.sh",
+        "scripts/cleanup.sh"
+      ],
+      "pause_before": "30s",
+      "type": "shell"
     }
-  ],
-  "post-processors": [
-    [
-      {
-        "type": "compress",
-        "format": "bgzf",
-        "output": "output/wordpress-current-x86_64-compress/",
-        "only": ["qemu"]
-      }
-    ]
   ]
 }

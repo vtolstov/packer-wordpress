@@ -6,7 +6,7 @@ install:
 
 build:
 	$(eval TPL := $(filter-out $@,$(MAKECMDGOALS)))
-	$(eval builders := $(shell jq '.builders[] | .type' $(TPL).json | tr -d '"'))
+	$(eval builders := $(shell jq '.builders[] | .type' $(TPL).json | tr -d '"' | grep qemu))
 	$(eval outputdir := $(CURDIR)/output/$(TPL))
 	find $(CURDIR)/output/ -maxdepth 1 -name '$(TPL)-*' -type d -print0 | xargs -0 -I {} /bin/rm -r "{}"
 	@echo building $(TPL)
