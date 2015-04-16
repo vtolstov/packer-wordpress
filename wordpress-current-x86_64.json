@@ -84,5 +84,15 @@
       "pause_before": "30s",
       "type": "shell"
     }
+  ],
+  "post-processors": [
+    [
+      {
+        "type": "compress",
+        "format": "bgzf",
+        "output": "output/wordpress-current-x86_64-compress/",
+        "only": ["qemu"]
+      }
+    ]
   ]
 }
