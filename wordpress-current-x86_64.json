@@ -25,7 +25,7 @@
       ],
       "boot_wait": "5s",
       "disk_interface": "scsi",
-      "disk_size": 5000,
+      "disk_size": 10000,
       "disk_cache": "unsafe",
       "format": "raw",
       "headless": true,
@@ -39,7 +39,7 @@
       "qemuargs": [
         [
           "-m",
-          "768"
+          "1024"
         ],
         [
           "-device",
