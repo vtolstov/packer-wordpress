@@ -12,4 +12,7 @@ if [ "x${names}" != "x" ]; then
     done
 fi
 
+rm -rf /root/charms/
+apt-get -y purge cloud-init
+
 fstrim -v /
