@@ -31,13 +31,16 @@ for d in juju mysql wordpress; do
   done
 done
 
+delay=10
+
 for d in juju mysql wordpress; do
     lxc-attach -n $d -- /usr/bin/ssh-keygen -A
     lxc-attach -n $d -- /usr/sbin/service ssh restart
     lxc-attach -n $d -- mkdir -p /home/ubuntu/.ssh/
     cat /root/.ssh/juju.pub > /var/lib/lxc/$d/delta0/home/ubuntu/.ssh/authorized_keys
-#    grep -q "lxc.start.auto = 1" /var/lib/lxc/$d/config || echo "lxc.start.auto = 1" >> /var/lib/lxc/$d/config
-#    grep -q "lxc.start.delay = 5" /var/lib/lxc/$d/config || echo "lxc.start.delay = 5" >> /var/lib/lxc/$d/config
+    grep -q "lxc.start.auto = 1" /var/lib/lxc/$d/config || echo "lxc.start.auto = 1" >> /var/lib/lxc/$d/config
+    grep -q "lxc.start.delay = $delay" /var/lib/lxc/$d/config || echo "lxc.start.delay = $delay" >> /var/lib/lxc/$d/config
+    delay=$((delay+10))
 done
 
 mkdir -p /home/ubuntu/.ssh/
