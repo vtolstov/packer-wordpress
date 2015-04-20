@@ -77,8 +77,8 @@
     {
       "scripts": [
         "scripts/wordpress.sh",
-        "scripts/cloudinit.sh",
         "scripts/charmclean.sh",
+        "scripts/cloudinit.sh",
         "scripts/cleanup.sh"
       ],
       "pause_before": "30s",
