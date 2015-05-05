@@ -63,7 +63,7 @@ lxc-clone-aufs: true
 environments:
   manual:
     type: manual
-    bootstrap-host: ${JUJU_IP}
+    bootstrap-host: 127.0.0.1
     lxc-clone: true
     lxc-clone-aufs: true
   local:
