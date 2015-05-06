@@ -79,7 +79,7 @@ cp /root/.ssh/juju.pub /root/.juju/ssh/juju_id_rsa.pub
 
 juju bootstrap --debug
 
-juju add-machine ssh:ubuntu@127.0.0.1
+#juju add-machine ssh:ubuntu@127.0.0.1
 #juju add-machine ssh:ubuntu@10.0.3.1 #1
 #juju add-machine ssh:ubuntu@${WP_IP} #2
 #juju add-machine ssh:ubuntu@${MYSQL_IP} #3
