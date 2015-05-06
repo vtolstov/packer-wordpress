@@ -7,7 +7,7 @@ apt-get -y --force-yes install software-properties-common jq curl
 
 add-apt-repository --yes ppa:juju/stable
 apt-get -y --force-yes update
-apt-get -y --force-yes install juju-core sudo git-core # lxc aufs-tools
+apt-get -y --force-yes install juju-core sudo git-core lxc #aufs-tools
 useradd -G sudo -s /bin/bash -m -d /home/ubuntu ubuntu
 mkdir -p /root/.ssh
 test -f /root/.ssh/juju || ssh-keygen -t rsa -b 4096 -f /root/.ssh/juju -N ''
@@ -63,7 +63,7 @@ lxc-clone-aufs: true
 environments:
   manual:
     type: manual
-    bootstrap-host: 127.0.0.1
+    bootstrap-host: 10.0.3.1
     lxc-clone: true
     lxc-clone-aufs: true
   local:
