@@ -85,7 +85,7 @@ juju bootstrap --debug
 #juju add-machine ssh:ubuntu@${MYSQL_IP} #3
 
 mkdir -p /root/charms/
-git clone https://github.com/vtolstov/charms /root/charms/trusty
+git clone https://github.com/vtolstov/charms.git /root/charms/trusty
 #test -d charms/trusty/mysql || git clone -b trusty https://github.com/vtolstov/charm-mysql charms/trusty/mysql
 #test -d charms/trusty/wordpress || git clone -b trusty https://github.com/vtolstov/charm-wordpress charms/trusty/wordpress
 #test -d charms/trusty/haproxy || git clone -b trusty https://github.com/vtolstov/charm-haproxy charms/trusty/haproxy
