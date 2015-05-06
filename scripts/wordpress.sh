@@ -94,7 +94,7 @@ juju deploy --repository=/root/charms/ local:trusty/mysql --to 0 --debug
 #juju set mysql query-cache-type=ON
 #juju set mysql query-cache-size=-1
 juju deploy --repository=/root/charms/ local:trusty/wordpress --to 0 --debug
-juju add-relation mysql wordpress --debug
+juju add-relation wordpress mysql --debug || sleep 600m
 
 juju expose wordpress --debug
 
