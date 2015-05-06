@@ -1,7 +1,8 @@
 #!/bin/bash -xe
 
 date "+%Y-%m-%d %H:%M:%S"
-
+sysctl -w net.ipv6.conf.all.accept_ra=0
+ip -6 a flush dev eth0
 apt-get update
 apt-get -y --force-yes install software-properties-common jq curl
 
