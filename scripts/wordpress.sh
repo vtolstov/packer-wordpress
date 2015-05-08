@@ -1,6 +1,6 @@
 #!/bin/bash -xe
 
-sleep 6000m;
+#sleep 6000m;
 
 date "+%Y-%m-%d %H:%M:%S"
 sysctl -w net.ipv6.conf.all.accept_ra=0
