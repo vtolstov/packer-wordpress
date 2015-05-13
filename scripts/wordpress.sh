@@ -1,6 +1,6 @@
 #!/bin/bash -xe
 
-sleep 6000m;
+#sleep 6000m;
 
 date "+%Y-%m-%d %H:%M:%S"
 sysctl -w net.ipv6.conf.all.accept_ra=0
@@ -16,36 +16,36 @@ useradd -G sudo -s /bin/bash -m -d /home/ubuntu ubuntu
 mkdir -p /root/.ssh
 test -f /root/.ssh/juju || ssh-keygen -t rsa -b 4096 -f /root/.ssh/juju -N ''
 echo "ubuntu ALL=(ALL) NOPASSWD:ALL" > "/etc/sudoers.d/90-cloud-init-users"
-#lxc-info -n trusty-base || lxc-create -t ubuntu-cloud -n trusty-base -- -r trusty -S /root/.ssh/juju.pub
+lxc-info -n trusty-base || lxc-create -t ubuntu-cloud -n trusty-base -- -r trusty -S /root/.ssh/juju.pub
 
-#lxc-info -n juju || lxc-clone -s -B aufs trusty-base juju
+lxc-info -n juju || lxc-clone -s -B aufs trusty-base juju
 #lxc-info -n mysql || lxc-clone -s -B aufs trusty-base mysql
 #lxc-info -n wordpress || lxc-clone -s -B aufs trusty-base wordpress
 
-#for d in juju; do # mysql wordpress; do
-#  lxc-start -d -n $d;
-#done
+for d in juju; do # mysql wordpress; do
+  lxc-start -d -n $d;
+done
 
-#for d in juju; do # mysql wordpress; do
-#  while (true) ; do
-#    if [ "$(lxc-info -n $d -i | awk '{print $2}')" != "" ]; then
-#        break
-#    fi
- #   sleep 10s;
- # done
-#done
+for d in juju; do # mysql wordpress; do
+  while (true) ; do
+    if [ "$(lxc-info -n $d -i | awk '{print $2}')" != "" ]; then
+        break
+    fi
+   sleep 10s;
+ done
+done
 
-#delay=10
+delay=10
 
-#for d in juju; do # mysql wordpress; do
-#    lxc-attach -n $d -- /usr/bin/ssh-keygen -A
-#    lxc-attach -n $d -- /usr/sbin/service ssh restart
-#    lxc-attach -n $d -- mkdir -p /home/ubuntu/.ssh/
-#    cat /root/.ssh/juju.pub > /var/lib/lxc/$d/delta0/home/ubuntu/.ssh/authorized_keys
-#    grep -q "lxc.start.auto = 1" /var/lib/lxc/$d/config || echo "lxc.start.auto = 1" >> /var/lib/lxc/$d/config
-#    grep -q "lxc.start.delay = $delay" /var/lib/lxc/$d/config || echo "lxc.start.delay = $delay" >> /var/lib/lxc/$d/config
-#    delay=$((delay+10))
-#done
+for d in juju; do # mysql wordpress; do
+    lxc-attach -n $d -- /usr/bin/ssh-keygen -A
+    lxc-attach -n $d -- /usr/sbin/service ssh restart
+    lxc-attach -n $d -- mkdir -p /home/ubuntu/.ssh/
+    cat /root/.ssh/juju.pub > /var/lib/lxc/$d/delta0/home/ubuntu/.ssh/authorized_keys
+    grep -q "lxc.start.auto = 1" /var/lib/lxc/$d/config || echo "lxc.start.auto = 1" >> /var/lib/lxc/$d/config
+    grep -q "lxc.start.delay = $delay" /var/lib/lxc/$d/config || echo "lxc.start.delay = $delay" >> /var/lib/lxc/$d/config
+    delay=$((delay+10))
+done
 
 mkdir -p /home/ubuntu/.ssh/
 cat /root/.ssh/juju.pub >> /home/ubuntu/.ssh/authorized_keys
@@ -54,7 +54,7 @@ chown -R ubuntu /home/ubuntu
 juju generate-config
 juju switch manual
 
-#JUJU_IP=$(lxc-info -n juju -i | awk '{print $2}')
+JUJU_IP=$(lxc-info -n juju -i | awk '{print $2}')
 #WP_IP=$(lxc-info -n wordpress -i | awk '{print $2}')
 #MYSQL_IP=$(lxc-info -n mysql -i | awk '{print $2}')
 
@@ -67,7 +67,7 @@ lxc-clone-aufs: true
 environments:
   manual:
     type: manual
-    bootstrap-host: 10.0.3.1
+    bootstrap-host: ${JUJU_IP}
     lxc-clone: true
     lxc-clone-aufs: true
   local:
@@ -84,7 +84,7 @@ cp /root/.ssh/juju.pub /root/.juju/ssh/juju_id_rsa.pub
 juju bootstrap --debug
 
 #juju add-machine ssh:ubuntu@127.0.0.1
-#juju add-machine ssh:ubuntu@10.0.3.1 #1
+juju add-machine ssh:ubuntu@10.0.3.1 #1
 #juju add-machine ssh:ubuntu@${WP_IP} #2
 #juju add-machine ssh:ubuntu@${MYSQL_IP} #3
 
