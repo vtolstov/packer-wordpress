@@ -1,8 +1,6 @@
 {
   "post-processors": {
-    "compress": "packer-post-processor-compress"
-  },
-  "builders": {
-    "libvirt": "packer-builder-libvirt"
+    "compress": "packer-post-processor-compress",
+    "checksum": "packer-post-processor-checksum"
   }
 }
