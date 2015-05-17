@@ -92,6 +92,10 @@
         "format": "bgzf",
         "output": "output/wordpress-current-x86_64-compress/",
         "only": ["qemu"]
+      },
+      {
+        "type": "checksum",
+        "output": "output/wordpress-current-x86_64-compress/"
       }
     ]
   ]
