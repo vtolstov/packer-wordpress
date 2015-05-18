@@ -41,28 +41,12 @@
         [
           "-m",
           "1024"
-        ],
-        [
-          "-device",
-          "virtio-scsi-pci,id=scsi0"
-        ],
-        [
-          "-drive",
-          "if=none,cache=unsafe,id=drive0,discard=unmap,file=output/wordpress-current-x86_64-qemu/wordpress-current-x86_64"
-        ],
-        [
-          "-device",
-          "scsi-hd,bus=scsi0.0,drive=drive0"
-        ],
-        [
-          "-device",
-          "virtio-net,netdev=user.0"
         ]
       ],
       "shutdown_command": "shutdown -h now",
       "ssh_password": "packer",
       "ssh_username": "root",
-      "ssh_wait_timeout": "10000s",
+      "ssh_wait_timeout": "1200s",
       "type": "qemu",
       "vm_name": "wordpress-current-x86_64"
     }
