@@ -75,6 +75,7 @@
       {
         "type": "compress",
         "format": "bgzf",
+        "metadata": true,
         "output": "output/wordpress-current-x86_64-compress/",
         "only": ["qemu"]
       },
