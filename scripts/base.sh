@@ -32,7 +32,7 @@ cat <<EOF > /etc/fstab
 # that works even if disks are added and removed. See fstab(5).
 #
 # <file system> <mount point>   <type>          <options>                        <dump>  <pass>
-/dev/sda1       /               ext4    defaults,relatime,discard,errors=panic      0       1
+/dev/sda1       /               ext4    defaults,relatime,errors=panic      0       1
 EOF
 
 cat <<EOF > /etc/network/interfaces
